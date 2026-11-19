@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SMART SELLER — Buy • Sell • Connect • Worldwide</title>
+<style>
+:root{
+  --primary:#0b5ed7; --primary-dark:#084298; --accent:#ffb703;
+  --bg:#f4f6fb; --card:#ffffff; --text:#1a2332; --muted:#6b7686;
+  --success:#198754; --danger:#dc3545; --border:#e3e8f0; --radius:12px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',system-ui,Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
+a{color:var(--primary);text-decoration:none}
+header{background:var(--primary);color:#fff;position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(0,0,0,.15)}
+.topbar{max-width:1200px;margin:auto;display:flex;align-items:center;gap:16px;padding:10px 16px;flex-wrap:wrap}
+.logo{font-size:1.4rem;font-weight:800;letter-spacing:.5px;color:#fff;display:flex;align-items:center;gap:8px;cursor:pointer}
+.logo span{color:var(--accent)}
+nav{display:flex;gap:4px;flex-wrap:wrap;flex:1}
+nav a{color:#dbe7ff;padding:8px 12px;border-radius:8px;font-size:.92rem}
+nav a:hover,nav a.active{background:rgba(255,255,255,.15);color:#fff}
+.controls{display:flex;gap:8px;align-items:center}
+select,input,textarea,button{font:inherit}
+.controls select,.controls button{background:rgba(255,255,255,.15);color:#fff;border:1px solid rgba(255,255,255,.35);border-radius:8px;padding:7px 10px;font-size:.85rem}
+.controls select option{color:#000}
+.btn{background:var(--accent);color:#1a2332;border:none;border-radius:8px;padding:9px 18px;font-weight:700;cursor:pointer}
+.btn:hover{filter:brightness(1.05)}
+.btn-outline{background:transparent;border:2px solid var(--primary);color:var(--primary);border-radius:8px;padding:8px 16px;font-weight:600;cursor:pointer}
+.btn-outline:hover{background:var(--primary);color:#fff}
+.btn-sm{padding:5px 12px;font-size:.82rem}
+main{max-width:1200px;margin:auto;padding:24px 16px}
+.hero{background:linear-gradient(135deg,var(--primary),#3d8bfd);color:#fff;border-radius:var(--radius);padding:48px 32px;text-align:center;margin-bottom:24px}
+.hero h1{font-size:2.2rem;margin-bottom:10px}
+.hero p{opacity:.92;max-width:640px;margin:0 auto 22px}
+.hero .btn{font-size:1rem}
+.stats{display:flex;gap:16px;justify-content:center;margin-top:26px;flex-wrap:wrap}
+.stat{background:rgba(255,255,255,.12);border-radius:10px;padding:12px 26px}
+.stat b{font-size:1.4rem;display:block}
+.grid{display:grid;gap:16px}
+.grid-4{grid-template-columns:repeat(auto-fill,minmax(200px,1fr))}
+.grid-3{grid-template-columns:repeat(auto-fill,minmax(280px,1fr))}
+.card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:18px;transition:.15s}
+.card:hover{box-shadow:0 6px 18px rgba(11,94,215,.12)}
+.cat-card{text-align:center;cursor:pointer;font-weight:600}
+.cat-card .icon{font-size:2rem;display:block;margin-bottom:8px}
+.section-title{margin:28px 0 14px;font-size:1.25rem;display:flex;justify-content:space-between;align-items:center}
+.badge{display:inline-block;font-size:.72rem;font-weight:700;padding:3px 9px;border-radius:999px}
+.badge-cat{background:#e7f0ff;color:var(--primary)}
+.badge-verified{background:#e8f7ee;color:var(--success)}
+.badge-cur{background:#fff3cd;color:#8a6100}
+.listing{display:flex;flex-direction:column}
+.listing .img{height:150px;border-radius:8px;margin-bottom:12px;display:flex;align-items:center;justify-content:center;font-size:2.6rem;background:linear-gradient(135deg,#e7f0ff,#f8f9ff)}
+.listing h3{font-size:1.02rem;margin-bottom:4px}
+.listing .price{font-size:1.15rem;font-weight:800;color:var(--primary)}
+.listing .loc{color:var(--muted);font-size:.82rem;margin:4px 0 10px}
+.listing .actions{display:flex;gap:8px;margin-top:auto}
+.contact-row{display:flex;gap:8px;margin-top:10px}
+form .row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+label{display:block;font-size:.85rem;font-weight:600;margin-bottom:4px}
+input,textarea,select.full{width:100%;padding:10px;border:1px solid var(--border);border-radius:8px;background:#fff}
+.field{margin-bottom:14px}
+.fee-box{background:#eef6ff;border:1px solid #b6d4fe;border-radius:10px;padding:16px;margin:14px 0;text-align:center}
+.fee-box .amount{font-size:1.8rem;font-weight:800;color:var(--primary)}
+.agreement{max-height:220px;overflow-y:auto;background:#fafbfc;border:1px solid var(--border);border-radius:8px;padding:14px;font-size:.86rem;margin:10px 0}
+.agreement h4{margin:8px 0 4px;color:var(--primary-dark)}
+.checkbox{display:flex;gap:10px;align-items:flex-start;font-size:.9rem;margin:12px 0}
+table{width:100%;border-collapse:collapse;font-size:.88rem}
+th,td{padding:10px 12px;border-bottom:1px solid var(--border);text-align:left}
+th{background:#f0f4fa;font-size:.78rem;text-transform:uppercase;letter-spacing:.4px;color:var(--muted)}
+.tabs{display:flex;gap:6px;margin-bottom:16px;flex-wrap:wrap}
+.tabs button{border:1px solid var(--border);background:#fff;border-radius:8px;padding:8px 16px;cursor:pointer;font-weight:600}
+.tabs button.active{background:var(--primary);color:#fff;border-color:var(--primary)}
+.hidden{display:none !important}
+footer{background:var(--primary-dark);color:#cdd9f0;margin-top:40px;padding:28px 16px;text-align:center;font-size:.85rem}
+.toast{position:fixed;bottom:24px;right:24px;background:var(--success);color:#fff;padding:14px 22px;border-radius:10px;box-shadow:0 6px 20px rgba(0,0,0,.25);display:none;z-index:200;font-weight:600}
+.searchbar{display:flex;gap:8px;margin-bottom:8px;flex-wrap:wrap}
+.searchbar input,.searchbar select{flex:1;min-width:140px;padding:11px;border:1px solid var(--border);border-radius:8px}
+@media(max-width:640px){form .row{grid-template-columns:1fr}.hero h1{font-size:1.5rem}}
+</style>
+<base target="_blank">
+</head>
+<body>
+
+<header>
+  <div class="topbar">
+    <div class="logo" onclick="showPage('home')">🛒 SMART<span>SELLER</span></div>
+    <nav id="mainNav">
+      <a data-page="home" class="active">Home</a>
+      <a data-page="buy">Buy</a>
+      <a data-page="sell">Sell</a>
+      <a data-page="properties">Properties</a>
+      <a data-page="vehicles">Vehicles</a>
+      <a data-page="business">Business</a>
+      <a data-page="about">About</a>
+      <a data-page="contact">Contact</a>
+      <a data-page="admin" style="opacity:.75">Admin</a>
+    </nav>
+    <div class="controls">
+      <select id="langSel" onchange="setLang(this.value)"></select>
+      <select id="curSel" onchange="setCurrency(this.value)">
+        <option value="LKR">LKR ₨</option><option value="USD">USD $</option>
+      </select>
+    </div>
+  </div>
+</header>
+
+<main>
+
+<!-- ============ HOME ============ -->
+<section id="page-home">
+  <div class="hero">
+    <h1 data-i18n="hero_title">Buy • Sell • Connect • Worldwide</h1>
+    <p data-i18n="hero_sub">A trusted international marketplace for products and properties — in 24 languages, with LKR &amp; USD payments.</p>
+    <button class="btn" onclick="showPage('sell')" data-i18n="cta_sell">Start Selling — 5% Fee</button>
+    <button class="btn" style="background:#fff;margin-left:8px" onclick="showPage('buy')" data-i18n="cta_buy">Browse Listings</button>
+    <div class="stats">
+      <div class="stat"><b id="statListings">0</b><span data-i18n="stat_listings">Live Listings</span></div>
+      <div class="stat"><b>24</b><span data-i18n="stat_langs">Languages</span></div>
+      <div class="stat"><b>2</b><span data-i18n="stat_cur">Currencies (LKR/USD)</span></div>
+    </div>
+  </div>
+
+  <h2 class="section-title" data-i18n="cats">Categories</h2>
+  <div class="grid grid-4" id="catGrid"></div>
+
+  <h2 class="section-title"><span data-i18n="featured">Featured Listings</span></h2>
+  <div class="grid grid-3" id="featuredGrid"></div>
+</section>
+
+<!-- ============ BUY / LISTINGS ============ -->
+<section id="page-buy" class="hidden">
+  <h2 class="section-title" data-i18n="browse">Browse Listings</h2>
+  <div class="searchbar">
+    <input id="searchQ" placeholder="Search products, properties…" oninput="renderListings()">
+    <select id="searchCat" onchange="renderListings()"><option value="">All Categories</option></select>
+    <select id="searchCountry" onchange="renderListings()"><option value="">All Countries</option></select>
+    <select id="searchSort" onchange="renderListings()">
+      <option value="">Sort: Newest</option><option value="low">Price: Low → High</option><option value="high">Price: High → Low</option>
+    </select>
+  </div>
+  <div class="grid grid-3" id="listingGrid" style="margin-top:14px"></div>
+</section>
+
+<!-- ============ SELL ============ -->
+<section id="page-sell" class="hidden">
+  <h2 class="section-title" data-i18n="sell_title">Sell on SMART SELLER</h2>
+  <div class="card" style="max-width:760px">
+    <div class="tabs" id="sellTabs">
+      <button class="active" onclick="sellStep(1)">1. Seller Details</button>
+      <button onclick="sellStep(2)">2. Product Info</button>
+      <button onclick="sellStep(3)">3. Agreement & Payment</button>
+    </div>
+
+    <!-- Step 1 -->
+    <div id="sellStep1">
+      <div class="row">
+        <div class="field"><label data-i18n="f_name">Full Name *</label><input id="s_name" placeholder="e.g. Nimal Perera"></div>
+        <div class="field"><label data-i18n="f_id">National ID / Business Reg. No.</label><input id="s_id" placeholder="e.g. 901234567V / PV12345"></div>
+      </div>
+      <div class="row">
+        <div class="field"><label data-i18n="f_phone">Contact Number *</label><input id="s_phone" placeholder="+94 7X XXX XXXX"></div>
+        <div class="field"><label>WhatsApp Number *</label><input id="s_whatsapp" placeholder="+94 7X XXX XXXX"></div>
+      </div>
+      <div class="row">
+        <div class="field"><label>Email *</label><input id="s_email" type="email" placeholder="you@email.com"></div>
+        <div class="field"><label data-i18n="f_country">Country *</label><select id="s_country" class="full"></select></div>
+      </div>
+      <div class="field"><label>City *</label><input id="s_city" placeholder="e.g. Colombo"></div>
+      <button class="btn" onclick="sellStep(2)" data-i18n="next">Next →</button>
+    </div>
+
+    <!-- Step 2 -->
+    <div id="sellStep2" class="hidden">
+      <div class="field"><label data-i18n="f_title">Product / Property Name *</label><input id="p_title" placeholder="e.g. Toyota Prius 2018"></div>
+      <div class="row">
+        <div class="field"><label data-i18n="f_cat">Category *</label><select id="p_cat" class="full"></select></div>
+        <div class="field"><label data-i18n="f_cond">Condition</label><select id="p_cond" class="full"><option>New</option><option>Used — Like New</option><option>Used — Good</option><option>Needs Repair</option></select></div>
+      </div>
+      <div class="field"><label data-i18n="f_desc">Description * (condition, defects, usage history, legal/ownership info)</label>
+        <textarea id="p_desc" rows="4" placeholder="Be accurate and truthful — misleading listings are removed and accounts terminated."></textarea></div>
+      <div class="field"><label>Photos / Videos</label><input type="file" id="p_media" multiple accept="image/*,video/*"></div>
+      <div class="row">
+        <div class="field"><label data-i18n="f_price">Selling Price *</label><input id="p_price" type="number" min="0" oninput="calcFee()"></div>
+        <div class="field"><label data-i18n="f_cur">Currency *</label>
+          <select id="p_cur" class="full" onchange="calcFee()"><option>LKR</option><option>USD</option></select></div>
+      </div>
+      <div class="fee-box">
+        <div data-i18n="fee_label">5% Service Fee (payable before listing is published)</div>
+        <div class="amount" id="feeAmount">—</div>
+        <small id="feeUsd" style="color:var(--muted)"></small>
+      </div>
+      <div style="display:flex;gap:8px">
+        <button class="btn-outline" onclick="sellStep(1)">← Back</button>
+        <button class="btn" onclick="sellStep(3)" data-i18n="next">Next →</button>
+      </div>
+    </div>
+
+    <!-- Step 3 -->
+    <div id="sellStep3" class="hidden">
+      <h3 style="margin-bottom:6px" data-i18n="agree_title">SMART SELLER — Seller Agreement</h3>
+      <div class="agreement">
+        <h4>1. Legal Ownership &amp; Legitimacy</h4><p>The seller confirms all items uploaded are legally owned by the seller or the seller has legal authority to sell them, and comply with applicable laws.</p>
+        <h4>2. Product Quality &amp; Condition</h4><p>Seller must disclose actual condition, quality, specifications, damages, defects, previous usage and relevant legal/ownership information.</p>
+        <h4>3. Accuracy of Information</h4><p>No fake photographs, misleading descriptions, fraudulent documents or false prices. All information must be accurate and truthful.</p>
+        <h4>4. Service Fee — 5%</h4><p>Seller agrees to pay 5% of the declared value at upload time, before the listing is published or activated.</p>
+        <h4>5. Seller Responsibility</h4><p>Seller is fully responsible for legal ownership, authenticity, quality, accuracy, and providing the item as advertised.</p>
+        <h4>6. Transactions</h4><p>Buyers and sellers communicate directly, negotiate, inspect and complete transactions. Both parties agree on terms.</p>
+        <h4>7. Violations</h4><p>SMART SELLER may remove listings, suspend or permanently terminate accounts with illegal products, fraud or misleading ads.</p>
+      </div>
+      <label class="checkbox"><input type="checkbox" id="agreeChk" style="width:auto;margin-top:4px">
+        <span><span data-i18n="agree_chk">I have read and agree to the SMART SELLER Seller Agreement.</span><br>
+        <small style="color:var(--muted)" id="agreeStamp"></small></span></label>
+      <div class="field"><label data-i18n="pay_method">Payment Method</label>
+        <select id="payMethod" class="full"><option>💳 Visa</option><option>💳 Mastercard</option><option>🏦 Sri Lankan Bank Transfer</option><option>🌐 International Payment Gateway</option></select></div>
+      <div id="receipt" class="hidden" style="background:#e8f7ee;border:1px solid #b7e4c7;border-radius:10px;padding:16px;margin:12px 0">
+        <b>✅ Payment Receipt</b>
+        <div id="receiptBody" style="font-size:.88rem;margin-top:8px;white-space:pre-line"></div>
+      </div>
+      <div style="display:flex;gap:8px">
+        <button class="btn-outline" onclick="sellStep(2)">← Back</button>
+        <button class="btn" onclick="submitListing()" id="payBtn" data-i18n="pay_publish">Pay Fee & Publish Listing</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CATEGORY PAGES ============ -->
+<section id="page-properties" class="hidden"><h2 class="section-title">🏠 Properties</h2><div class="grid grid-3 catPage" data-cat="Houses & Land"></div></section>
+<section id="page-vehicles" class="hidden"><h2 class="section-title">🚗 Vehicles</h2><div class="grid grid-3 catPage" data-cat="Vehicles"></div></section>
+<section id="page-business" class="hidden"><h2 class="section-title">💼 Business Opportunities</h2><div class="grid grid-3 catPage" data-cat="Business"></div></section>
+
+<!-- ============ ABOUT ============ -->
+<section id="page-about" class="hidden">
+  <div class="card" style="max-width:760px">
+    <h2 style="margin-bottom:10px">About SMART SELLER</h2>
+    <p><b>Vision:</b> A trusted international marketplace where individuals and businesses advertise, buy and sell legally permitted products and properties worldwide.</p>
+    <p><b>Business model:</b> A 5% seller service fee on each listing, paid at upload time.</p>
+    <p><b>Mission:</b> Connect buyers and sellers worldwide through a secure, multilingual, accessible marketplace.</p>
+    <hr style="margin:14px 0;border:none;border-top:1px solid var(--border)">
+    <p style="font-size:.85rem;color:var(--muted)">⚖️ Legal note: The Seller Agreement, advance-fee policy, refunds, privacy policy and international payments should be reviewed by a qualified lawyer and payment provider before launch. The payment provider must approve the advance listing-fee model and operating countries.</p>
+  </div>
+</section>
+
+<!-- ============ CONTACT ============ -->
+<section id="page-contact" class="hidden">
+  <div class="card" style="max-width:560px">
+    <h2 style="margin-bottom:12px">Contact Us</h2>
+    <div class="field"><label>Name</label><input id="c_name"></div>
+    <div class="field"><label>Email</label><input id="c_email" type="email"></div>
+    <div class="field"><label>Message</label><textarea id="c_msg" rows="4"></textarea></div>
+    <button class="btn" onclick="toast('✉️ Message sent. We reply within 24 hours.');['c_name','c_email','c_msg'].forEach(i=>document.getElementById(i).value='')">Send Message</button>
+  </div>
+</section>
+
+<!-- ============ ADMIN ============ -->
+<section id="page-admin" class="hidden">
+  <h2 class="section-title">🛠 Administrator Dashboard</h2>
+  <div class="grid grid-4" style="margin-bottom:20px">
+    <div class="card"><b style="font-size:1.6rem" id="admListings">0</b><br><small>Listings</small></div>
+    <div class="card"><b style="font-size:1.6rem" id="admRevenue">—</b><br><small>5% Fee Revenue</small></div>
+    <div class="card"><b style="font-size:1.6rem" id="admPending">0</b><br><small>Pending Approval</small></div>
+    <div class="card"><b style="font-size:1.6rem">0</b><br><small>Reports</small></div>
+  </div>
+  <div class="card">
+    <h3 style="margin-bottom:8px">Listing Moderation</h3>
+    <table><thead><tr><th>Title</th><th>Seller</th><th>Price</th><th>Fee Paid</th><th>Status</th><th>Actions</th></tr></thead>
+    <tbody id="admTable"></tbody></table>
+  </div>
+</section>
+
+</main>
+
+<footer>SMART SELLER © 2026 • Buy • Sell • Connect • Worldwide • 24 Languages • LKR &amp; USD</footer>
+<div class="toast" id="toast"></div>
+
+<script>
+/* ---------- DATA ---------- */
+const CATEGORIES = [
+  {id:'Electronics',icon:'📱'},{id:'Houses & Land',icon:'🏠'},{id:'Vehicles',icon:'🚗'},
+  {id:'Furniture',icon:'🛋️'},{id:'Business',icon:'💼'},{id:'Other',icon:'📦'}
+];
+const COUNTRIES = ['Sri Lanka','India','United States','United Kingdom','UAE','Saudi Arabia','Malaysia','Singapore','Australia','Canada','Germany','France','Japan','China'];
+const RATE = 320; // indicative LKR per USD
+
+let listings = [
+  {id:1,title:'iPhone 14 Pro 256GB',cat:'Electronics',price:185000,cur:'LKR',country:'Sri Lanka',city:'Colombo',seller:'Kasun J.',phone:'+94 77 123 4567',wa:'94771234567',desc:'Excellent condition, full box, battery 92%.',verified:true,status:'live',icon:'📱',ts:1},
+  {id:2,title:'Toyota Prius 2018',cat:'Vehicles',price:24500,cur:'USD',country:'Sri Lanka',city:'Kandy',seller:'Nimal P.',phone:'+94 71 555 8899',wa:'94715558899',desc:'Single owner, full service history, accident-free.',verified:true,status:'live',icon:'🚗',ts:2},
+  {id:3,title:'2-Story House + 20 Perch Land',cat:'Houses & Land',price:420000,cur:'USD',country:'Sri Lanka',city:'Galle',seller:'Sunil F.',phone:'+94 77 901 2345',wa:'94779012345',desc:'Clear deed, sea view, 4 bed / 3 bath. Ownership docs verified.',verified:true,status:'live',icon:'🏠',ts:3},
+  {id:4,title:'Running Restaurant for Sale',cat:'Business',price:15000000,cur:'LKR',country:'Sri Lanka',city:'Colombo 03',seller:'Ayesha R.',phone:'+94 76 222 3344',wa:'94762223344',desc:'Prime location, 40 seats, fully equipped kitchen, trained staff.',verified:false,status:'live',icon:'💼',ts:4},
+  {id:5,title:'Samsung 55" QLED TV',cat:'Electronics',price:890,cur:'USD',country:'United States',city:'New York',seller:'Mike T.',phone:'+1 212 555 0147',wa:'12125550147',desc:'Like new, 1 year old, original remote & stand.',verified:true,status:'live',icon:'📺',ts:5},
+  {id:6,title:'Teak Dining Set (6 chairs)',cat:'Furniture',price:1850,cur:'USD',country:'Malaysia',city:'Kuala Lumpur',seller:'Mei L.',phone:'+60 12 345 6789',wa:'60123456789',desc:'Solid teak, handcrafted, minor scratch on one chair (disclosed).',verified:false,status:'live',icon:'🛋️',ts:6},
+  {id:7,title:'Bare Land 50 Perch — Kegalle',cat:'Houses & Land',price:9800000,cur:'LKR',country:'Sri Lanka',city:'Kegalle',seller:'Bandara S.',phone:'+94 70 444 5566',wa:'94704445566',desc:'Road-front land, clear deed, ideal for investment.',verified:false,status:'live',icon:'🌿',ts:7},
+  {id:8,title:'Honda Vezel 2019',cat:'Vehicles',price:9800000,cur:'LKR',country:'Sri Lanka',city:'Negombo',seller:'Ruwan K.',phone:'+94 75 777 1122',wa:'94757771122',desc:'Agent-maintained, new tyres, all docs ready.',verified:true,status:'live',icon:'🚙',ts:8},
+];
+
+/* ---------- I18N (UI strings; 24-language architecture) ---------- */
+const I18N = {
+  en:{hero_title:'Buy • Sell • Connect • Worldwide',hero_sub:'A trusted international marketplace for products and properties — in 24 languages, with LKR & USD payments.',cta_sell:'Start Selling — 5% Fee',cta_buy:'Browse Listings',stat_listings:'Live Listings',stat_langs:'Languages',stat_cur:'Currencies (LKR/USD)',cats:'Categories',featured:'Featured Listings',browse:'Browse Listings',sell_title:'Sell on SMART SELLER',next:'Next →',f_name:'Full Name *',f_id:'National ID / Business Reg. No.',f_country:'Country *',f_title:'Product / Property Name *',f_cat:'Category *',f_cond:'Condition',f_desc:'Description * (condition, defects, usage history, legal/ownership info)',f_price:'Selling Price *',f_cur:'Currency *',fee_label:'5% Service Fee (payable before listing is published)',agree_title:'SMART SELLER — Seller Agreement',agree_chk:'I have read and agree to the SMART SELLER Seller Agreement.',pay_method:'Payment Method',pay_publish:'Pay Fee & Publish Listing'},
+  si:{hero_title:'මිලදී ගන්න • විකිණීම • සම්බන්ධ වන්න • ලොව පුරා',hero_sub:'නිළධාරී අන්තර්ජාල වෙළඳපොළ — භාෂා 24 ක්, LKR සහ USD ගෙවීම්.',cta_sell:'විකුණුම් ආරම්භ කරන්න — 5% ගාස්තුව',cta_buy:'දැන්වීම් බලන්න',stat_listings:'සජීවී දැන්වීම්',stat_langs:'භාෂා',stat_cur:'මුදල් ඒකක (LKR/USD)',cats:'කාණ්ඩ',featured:'විශේෂ දැන්වීම්',browse:'දැන්වීම් පිරික්සන්න',sell_title:'SMART SELLER හි විකුණන්න',next:'ඊළඟ →',f_name:'සම්පූර්ණ නම *',f_id:'ජාතික හැඳුනුම් / ව්‍යාපාර ලියාපදිංචි අංකය',f_country:'රට *',f_title:'නිෂ්පාදන / දේපළ නම *',f_cat:'කාණ්ඩය *',f_cond:'තත්ත්වය',f_desc:'විස්තරය * (තත්ත්වය, දෝෂ, භාවිතය, නීත්‍යනුකූල තොරතුරු)',f_price:'විකුණුම් මිල *',f_cur:'මුදල් ඒකකය *',fee_label:'5% සේවා ගාස්තුව (ප්‍රකාශයට පෙර ගෙවිය යුතුය)',agree_title:'SMART SELLER — විකුණුම්කරු ගිවිසුම',agree_chk:'මම SMART SELLER විකුණුම්කරු ගිවිසුම කියවා එකඟ වෙමි.',pay_method:'ගෙවීමේ ක්‍රමය',pay_publish:'ගාස්තුව ගෙවී ලැයිස්තුගත කරන්න'},
+  ta:{hero_title:'வாங்கு • விற்க • இணை • உலகளவில்',hero_sub:'நம்பகமான சர்வதேச சந்தை — 24 மொழிகள், LKR மற்றும் USD கொடுப்பனவுகள்.',cta_sell:'விற்கத் தொடங்கு — 5% கட்டணம்',cta_buy:'பட்டியல்களைப் பார்',stat_listings:'நேரடி பட்டியல்கள்',stat_langs:'மொழிகள்',stat_cur:'நாணயங்கள் (LKR/USD)',cats:'வகைகள்',featured:'சிறப்பு பட்டியல்கள்',browse:'பட்டியல்களை உலாவு',sell_title:'SMART SELLER இல் விற்க',next:'அடுத்து →',f_name:'முழு பெயர் *',f_id:'தேசிய அடையாளம் / வணிக பதிவு',f_country:'நாடு *',f_title:'பொருள் / சொத்து பெயர் *',f_cat:'வகை *',f_cond:'நிலை',f_desc:'விவரம் *',f_price:'விற்பனை விலை *',f_cur:'நாணயம் *',fee_label:'5% சேவை கட்டணம் (வெளியிடும் முன் செலுத்த வேண்டும்)',agree_title:'SMART SELLER — விற்பனையாளர் ஒப்பந்தம்',agree_chk:'SMART SELLER விற்பனையாளர் ஒப்பந்தத்தை படித்து ஒப்புக்கொள்கிறேன்.',pay_method:'கட்டண முறை',pay_publish:'கட்டணம் செலுத்தி வெளியிடு'},
+  ar:{hero_title:'اشترِ • بِع • تواصل • حول العالم',hero_sub:'سوق دولي موثوق — 24 لغة، مع مدفوعات LKR و USD.',cta_sell:'ابدأ البيع — رسوم 5%',cta_buy:'تصفح الإعلانات',stat_listings:'إعلانات نشطة',stat_langs:'لغات',stat_cur:'عملات (LKR/USD)',cats:'الفئات',featured:'إعلانات مميزة',browse:'تصفح الإعلانات',sell_title:'بِع على SMART SELLER',next:'التالي ←',f_name:'الاسم الكامل *',f_id:'الهوية الوطنية / رقم التسجيل التجاري',f_country:'الدولة *',f_title:'اسم المنتج / العقار *',f_cat:'الفئة *',f_cond:'الحالة',f_desc:'الوصف *',f_price:'سعر البيع *',f_cur:'العملة *',fee_label:'رسوم الخدمة 5% (تدفع قبل نشر الإعلان)',agree_title:'SMART SELLER — اتفاقية البائع',agree_chk:'قرأت اتفاقية البائع ووافقت عليها.',pay_method:'طريقة الدفع',pay_publish:'ادفع الرسوم وانشر الإعلان'},
+  zh:{hero_title:'买 • 卖 • 连接 • 全球',hero_sub:'值得信赖的国际市场 — 24种语言，支持LKR和美元支付。',cta_sell:'开始销售 — 5%费用',cta_buy:'浏览商品',stat_listings:'在线商品',stat_langs:'语言',stat_cur:'货币（LKR/美元）',cats:'分类',featured:'精选商品',browse:'浏览商品',sell_title:'在SMART SELLER上销售',next:'下一步 →',f_name:'全名 *',f_id:'身份证号/商业登记号',f_country:'国家 *',f_title:'产品/房产名称 *',f_cat:'类别 *',f_cond:'成色',f_desc:'描述 *',f_price:'售价 *',f_cur:'货币 *',fee_label:'5%服务费（发布前支付）',agree_title:'SMART SELLER — 卖家协议',agree_chk:'我已阅读并同意卖家协议。',pay_method:'支付方式',pay_publish:'支付费用并发布'},
+};
+const LANGS24 = ['English','සිංහල','தமிழ்','हिन्दी','العربية','中文','日本語','한국어','Français','Deutsch','Español','Italiano','Português','Русский','বাংলা','اردو','Bahasa Indonesia','Bahasa Melayu','ไทย','Türkçe','Nederlands','Polski','Ελληνικά','עברית'];
+const LANG_MAP = {'English':'en','සිංහල':'si','தமிழ்':'ta','العربية':'ar','中文':'zh'};
+let lang='en', curPref='LKR';
+
+/* ---------- HELPERS ---------- */
+const $ = id => document.getElementById(id);
+function fmt(l, overrideCur){
+  const c = overrideCur || curPref;
+  let amt = l.cur==='LKR' ? l.price : l.price*RATE;
+  if(c==='USD') amt = l.cur==='USD' ? l.price : l.price/RATE;
+  const n = new Intl.NumberFormat(undefined,{maximumFractionDigits:0}).format(Math.round(amt));
+  return (c==='LKR'?'LKR ':'$')+n + (c!==l.cur?` <small style="color:var(--muted);font-weight:400">(≈${l.cur} ${new Intl.NumberFormat().format(l.price)})</small>`:'');
+}
+function toast(msg){const t=$('toast');t.textContent=msg;t.style.display='block';setTimeout(()=>t.style.display='none',3500)}
+function showPage(p){
+  document.querySelectorAll('main > section').forEach(s=>s.classList.add('hidden'));
+  $('page-'+p).classList.remove('hidden');
+  document.querySelectorAll('#mainNav a').forEach(a=>a.classList.toggle('active',a.dataset.page===p));
+  if(p==='buy')renderListings();
+  ['properties','vehicles','business'].forEach(cp=>{
+    if(p===cp){const grid=document.querySelector('#page-'+cp+' .catPage');
+      grid.innerHTML = listings.filter(l=>l.cat===grid.dataset.cat&&l.status==='live').map(cardHTML).join('')||'<p>No listings yet.</p>'}
+  });
+  if(p==='admin')renderAdmin();
+  window.scrollTo(0,0);
+}
+
+/* ---------- RENDER ---------- */
+function cardHTML(l){
+  return `<div class="card listing">
+    <div class="img">${l.icon||'📦'}</div>
+    <div><span class="badge badge-cat">${l.cat}</span> ${l.verified?'<span class="badge badge-verified">✔ Verified</span>':''}</div>
+    <h3 style="margin-top:6px">${l.title}</h3>
+    <div class="price">${fmt(l)}</div>
+    <div class="loc">📍 ${l.city}, ${l.country} • Seller: ${l.seller}</div>
+    <p style="font-size:.83rem;color:var(--muted);margin-bottom:10px">${l.desc}</p>
+    <div class="actions">
+      <a class="btn btn-sm" href="tel:${l.phone}">📞 Call Seller</a>
+      <a class="btn btn-sm" style="background:#25d366;color:#fff" href="https://wa.me/${l.wa}" target="_blank">WhatsApp</a>
+      <button class="btn-outline btn-sm" onclick="toast('🚩 Listing reported. Our team will review it.')">Report</button>
+    </div></div>`;
+}
+function renderListings(){
+  const q=($('searchQ').value||'').toLowerCase(), c=$('searchCat').value, co=$('searchCountry').value, s=$('searchSort').value;
+  let r=listings.filter(l=>l.status==='live');
+  if(q)r=r.filter(l=>(l.title+l.desc+l.city).toLowerCase().includes(q));
+  if(c)r=r.filter(l=>l.cat===c);
+  if(co)r=r.filter(l=>l.country===co);
+  if(s==='low')r=[...r].sort((a,b)=>(a.cur==='LKR'?a.price:a.price*RATE)-(b.cur==='LKR'?b.price:b.price*RATE));
+  if(s==='high')r=[...r].sort((a,b)=>(b.cur==='LKR'?b.price:b.price*RATE)-(a.cur==='LKR'?a.price:a.price*RATE));
+  $('listingGrid').innerHTML = r.map(cardHTML).join('')||'<p>No listings match your search.</p>';
+}
+function renderAdmin(){
+  $('admListings').textContent=listings.length;
+  $('admPending').textContent=listings.filter(l=>l.status==='pending').length;
+  let revLKR=0;listings.forEach(l=>revLKR+= (l.cur==='LKR'?l.price:l.price*RATE)*0.05);
+  $('admRevenue').textContent='LKR '+new Intl.NumberFormat().format(Math.round(revLKR));
+  $('admTable').innerHTML=listings.map(l=>`<tr>
+    <td>${l.icon||''} ${l.title}</td><td>${l.seller}</td><td>${l.cur==='LKR'?'LKR':'$'}${new Intl.NumberFormat().format(l.price)}</td>
+    <td>${l.cur==='LKR'?'LKR':'$'}${new Intl.NumberFormat().format(Math.round(l.price*0.05))}</td>
+    <td>${l.status==='live'?'<span class="badge badge-verified">Live</span>':'<span class="badge badge-cur">Pending</span>'}</td>
+    <td>${l.status!=='live'?`<button class="btn btn-sm" onclick="approve(${l.id})">Approve</button>`:''}
+        <button class="btn-outline btn-sm" onclick="removeListing(${l.id})">Remove</button></td></tr>`).join('');
+}
+function approve(id){listings.find(l=>l.id===id).status='live';renderAdmin();renderListings();toast('✅ Listing approved & published')}
+function removeListing(id){listings=listings.filter(l=>l.id!==id);renderAdmin();renderListings();$('statListings').textContent=listings.filter(l=>l.status==='live').length;toast('🗑 Listing removed')}
+
+/* ---------- SELL FLOW ---------- */
+function sellStep(n){
+  if(n>1){
+    const req=[['s_name','Full name'],['s_phone','Contact number'],['s_whatsapp','WhatsApp'],['s_email','Email'],['s_country','Country'],['s_city','City']];
+    if(n>=2){for(const [id,label] of req){const el=$(id);if(!el.value.trim()){toast('⚠️ Please fill: '+label);sellStep(1);return}}}
+    if(n===3){const p=['p_title','p_desc','p_price','p_cat'];for(const id of p){const el=$(id);if(!el||!el.value.trim()){toast('⚠️ Please complete product details first');sellStep(2);return}}}
+  }
+  [1,2,3].forEach(i=>$('sellStep'+i).classList.toggle('hidden',i!==n));
+  document.querySelectorAll('#sellTabs button').forEach((b,i)=>b.classList.toggle('active',i===n-1));
+  if(n===3&&$('agreeChk').checked)$('agreeStamp').textContent='Accepted: '+new Date().toLocaleString();
+}
+function calcFee(){
+  const p=parseFloat($('p_price').value), c=$('p_cur').value;
+  if(!p||p<=0){$('feeAmount').textContent='—';$('feeUsd').textContent='';return}
+  const fee=p*0.05;
+  $('feeAmount').textContent=(c==='LKR'?'LKR ':'$')+new Intl.NumberFormat(undefined,{maximumFractionDigits:2}).format(fee);
+  $('feeUsd').textContent = c==='LKR' ? `≈ USD ${(fee/RATE).toFixed(2)} (indicative rate)` : `≈ LKR ${new Intl.NumberFormat().format(Math.round(fee*RATE))} (indicative rate)`;
+}
+$('agreeChk')?.addEventListener?.('change',()=>{});
+document.addEventListener('change',e=>{if(e.target.id==='agreeChk'&&e.target.checked)$('agreeStamp').textContent='Accepted: '+new Date().toLocaleString()});
+
+function submitListing(){
+  if(!$('agreeChk').checked){toast('⚠️ You must accept the Seller Agreement first');return}
+  const price=parseFloat($('p_price').value), cur=$('p_cur').value, fee=price*0.05;
+  const catObj=CATEGORIES.find(c=>c.id===$('p_cat').value)||CATEGORIES[5];
+  const id=Date.now();
+  listings.push({id,title:$('p_title').value,cat:$('p_cat').value||'Other',price,cur,
+    country:$('s_country').value,city:$('s_city').value,seller:$('s_name').value,
+    phone:$('s_phone').value,wa:$('s_whatsapp').value.replace(/\D/g,''),desc:$('p_desc').value,
+    verified:false,status:'pending',icon:catObj.icon,ts:id});
+  $('receipt').classList.remove('hidden');
+  $('receiptBody').textContent=`Receipt No: SS-${id}\nItem: ${$('p_title').value}\nDeclared Value: ${cur==='LKR'?'LKR':'USD'} ${new Intl.NumberFormat().format(price)}\nService Fee (5%): ${cur==='LKR'?'LKR':'USD'} ${new Intl.NumberFormat(undefined,{maximumFractionDigits:2}).format(fee)}\nMethod: ${$('payMethod').value}\nDate: ${new Date().toLocaleString()}\nSeller: ${$('s_name').value}\nStatus: AWAITING ADMIN APPROVAL`;
+  $('payBtn').textContent='✅ Payment Received — Pending Approval';
+  $('statListings').textContent=listings.filter(l=>l.status==='live').length;
+  toast('🎉 Listing submitted! Awaiting admin approval.');
+}
+
+/* ---------- I18N / CURRENCY ---------- */
+function setLang(l){lang=l;const t=I18N[l]||I18N.en;
+  document.querySelectorAll('[data-i18n]').forEach(el=>{if(t[el.dataset.i18n])el.textContent=t[el.dataset.i18n]});
+  document.documentElement.lang=l;}
+function setCurrency(c){curPref=c;renderListings();['properties','vehicles','business'].forEach(cp=>{const g=document.querySelector('#page-'+cp+' .catPage');if(g&&!g.closest('section').classList.contains('hidden'))g.innerHTML=listings.filter(l=>l.cat===g.dataset.cat&&l.status==='live').map(cardHTML).join('')||'<p>No listings yet.</p>'});}
+
+/* ---------- INIT ---------- */
+$('langSel').innerHTML=LANGS24.map(l=>`<option>${l}</option>`).join('');
+$('langSel').value='English';
+$('s_country').innerHTML=COUNTRIES.map(c=>`<option>${c}</option>`).join('');
+$('searchCountry').innerHTML='<option value="">All Countries</option>'+COUNTRIES.map(c=>`<option>${c}</option>`).join('');
+$('p_cat').innerHTML=CATEGORIES.map(c=>`<option value="${c.id}">${c.icon} ${c.id}</option>`).join('');
+$('searchCat').innerHTML='<option value="">All Categories</option>'+CATEGORIES.map(c=>`<option value="${c.id}">${c.id}</option>`).join('');
+$('catGrid').innerHTML=CATEGORIES.map(c=>`<div class="card cat-card" onclick="showPage('buy');$('searchCat').value='${c.id}';renderListings()"><span class="icon">${c.icon}</span>${c.id}</div>`).join('');
+$('featuredGrid').innerHTML=listings.slice(0,3).map(cardHTML).join('');
+$('statListings').textContent=listings.filter(l=>l.status==='live').length;
+document.querySelectorAll('#mainNav a').forEach(a=>a.addEventListener('click',()=>showPage(a.dataset.page)));
+</script>
+</body>
+</html>
